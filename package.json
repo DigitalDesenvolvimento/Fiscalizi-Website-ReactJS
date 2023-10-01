@@ -1,0 +1,37 @@
+{
+  "name": "fiscalizi",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^2.8.1",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@types/styled-components": "^5.1.28",
+    "framer-motion": "^10.16.4",
+    "js-cookie": "^3.0.5",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-transition-group": "^4.4.5",
+    "styled-components": "^6.0.8"
+  },
+  "devDependencies": {
+    "@types/js-cookie": "^3.0.4",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@types/react-transition-group": "^4.4.7",
+    "autoprefixer": "latest",
+    "eslint": "latest",
+    "eslint-config-next": "latest",
+    "postcss": "latest",
+    "tailwindcss": "latest",
+    "typescript": "latest"
+  }
+}
