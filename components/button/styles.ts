@@ -10,7 +10,8 @@ export const formControlComponent = styled(FormControl, {
 });
 export const buttonComponent = styled(Button, {
     baseStyle: {
-        background: "#66DAC5",
+        animation: 123,
+        background: "#1EBADD",
         border: "0px",
         borderRadius: "5px",
         cursor: "pointer",

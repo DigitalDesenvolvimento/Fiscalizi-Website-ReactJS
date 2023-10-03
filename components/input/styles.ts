@@ -5,29 +5,33 @@ export const formControlComponent = styled(FormControl, {
     baseStyle: {
         background: "#2D2D2D",
         borderRadius: "5px",
-        height: "25px"
+        height: "25px",
+        width: "100%"
     }
 });
 export const labelComponent = styled(FormLabel, {
     baseStyle: {
         alignItems: "center",
         background: "transparent",
+        color: "#1EBADD",
         display: "flex",
         height: "100%",
         justifyContent: "center",
-        color: "#66DAC5",
+        paddingLeft: "5px",
+        whiteSpace: "nowrap"
     }
 });
 export const inputComponent = styled(Input, {
     baseStyle: {
         background: "transparent",
         border: "0px",
-        color: "#BCBCBA",
+        color: "#1EBADD",
         height: "100%",
+        paddingLeft: "5px",
         outline: "0px",
         width: "100%",
         _placeholder: {
-            color: "#66DAC5"
+            color: "#1EBADD"
         }
     }
 });

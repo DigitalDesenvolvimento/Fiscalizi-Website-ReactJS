@@ -1,36 +1,47 @@
 import styled from 'styled-components';
 
-export const view = styled.div`
+export const superFormControlLogin = styled.div`
     align-items: center;
-    background: black;
     display: flex;
-    justify-content: right;
-    height: 100vh;
-    margin: -8px;
-    width: 100vw;
+    flex-direction: column;
+    height: 400px;
+    margin-right: 8%;
+    width: 20%;
+
+    .title {
+        color: white;
+        font-size: 25pt;
+        margin-bottom: 10px;
+    };
 `;
-export const FormControlLogin = styled.div`
-    align-items: right;
-    border: 1px solid #66DAC6;
+export const formControlLogin = styled.div`
+    align-items: center;
+    border: 1px solid #1EBADD;
     border-radius: 5%;
     display: flex;
     flex-direction: column;
+    height: 100%;
     justify-content: space-between;
-    margin-right: 5%;
-    height: 50%;
     padding: 3%;
+    width: 100%;
+
+    .title {
+        color: white;
+        font-size: 20pt;
+    };
 `;
 export const passwordreset = styled.a`
-    color: #66DAC6;
+    color: #1EBADD;
     text-decoration: none;
 `;
 export const signup = styled.div`
-    color: black;
+    color: #1D1D1B;
+    
     .text {
         color: white;
     };
     .link {
-        color: #66DAC6;
+        color: #1EBADD;
         text-decoration: none;
     };
 `;
