@@ -1,10 +1,11 @@
+import { Button, FormControl } from '@chakra-ui/react';
+import { modeContext } from "@/utils";
 import { motion } from "framer-motion";
 import { Dispatch, SetStateAction, memo, useEffect, useState } from 'react';
 import { CSSProperties, styled } from 'styled-components';
-import * as styles from "./styles";
-import { keyframes } from '@emotion/react';
 
 interface props {
+    modeContext: [modeContext, Dispatch<SetStateAction<modeContext>>];
     showButton?: boolean;
     formStyle?: CSSProperties;
     buttonValue?: string;
@@ -32,13 +33,28 @@ export default memo((props: props) => {
         }
         didMount();
     }, [getWaitOnClick])
-
-    return <styles.formControlComponent style={props.formStyle} display="flex">
+    return <FormControl style={{
+        background: props.modeContext[0] == modeContext.darkMode ? "#2D2D2D" : "#FBFBFB",
+        borderRadius: "5px",
+        width: "100%",
+        ...props.formStyle
+    }} display="flex">
         <motion.div style={{ width: "100%" }} animate={{ height: props.showButton ? "25px" : "0px" }}>
             {(props.showButton == true) && <Blinking>
-                <styles.buttonComponent style={props.buttonStyle} children={props.buttonValue}
+                <Button style={{
+                    animation: 123,
+                    background: props.modeContext[0] == modeContext.darkMode ? "#1EBADD" : "#0FDEC4",
+                    border: "0px",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                    color: "white",
+                    height: "25px",
+                    outline: "none",
+                    width: "100%",
+                    ...props.buttonStyle
+                }} children={props.buttonValue}
                     onClick={async () => setWaitOnClick(true)} />
             </Blinking>}
         </motion.div>
-    </styles.formControlComponent>
+    </FormControl>
 });

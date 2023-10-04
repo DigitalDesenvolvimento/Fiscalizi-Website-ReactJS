@@ -1,16 +1,18 @@
-import { CSSProperties, ReactNode, memo } from 'react';
+import { modeContext } from '@/utils';
+import { CSSProperties, Dispatch, ReactNode, SetStateAction, memo } from 'react';
 import * as styles from "./styles";
 
 interface props {
+    modeContext: [modeContext, Dispatch<SetStateAction<modeContext>>];
     children?: ReactNode;
     styleChildren?: CSSProperties;
 }
 
 export default memo((props: props) => {
-    return <styles.view>
-        <styles.circle01 />
-        <styles.circle02 />
-        <styles.iconWithText>
+    return <styles.view modeContext={props.modeContext[0]}>
+        <styles.circle01 modeContext={props.modeContext[0]} />
+        <styles.circle02 modeContext={props.modeContext[0]} />
+        <styles.iconWithText modeContext={props.modeContext[0]}>
             <svg width="100%" height="100%" viewBox="0 0 414 138" xmlns="http://www.w3.org/2000/svg">
                 <g>
                     <path d="M11.1985 21.3986V35.9074H35.409V45.2052H11.1985V70.2174H-0.103516V11.938H38.0553V21.3986H11.1985Z" fill="white" />
@@ -33,6 +35,6 @@ export default memo((props: props) => {
                 </defs>
             </svg>
         </styles.iconWithText>
-        <styles.children children={props.children} style={props.styleChildren} />
+        <styles.children modeContext={props.modeContext[0]} children={props.children} style={props.styleChildren} />
     </styles.view>
 });

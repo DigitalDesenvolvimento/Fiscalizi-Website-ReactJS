@@ -7,6 +7,9 @@ export default () => {
   const router = useRouter();
 
   useEffect(() => {
-    router.push(authToken.get() ? '/menu' : '/signin');
+    async function didMount() {
+      await router.push(authToken.get() ? '/menu' : '/signin');
+    }
+    didMount();
   }, []);
 };
