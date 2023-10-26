@@ -1,10 +1,11 @@
+import { controller } from "@/api";
 import * as components from "@/components";
+import { authToken, modeContext, validate } from "@/utils";
 import '@/public/global.css';
 import cookies from 'js-cookie';
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import * as styles from "./styles";
-import { modeContext } from "@/utils";
 
 export default () => {
   const router = useRouter();
@@ -23,11 +24,21 @@ export default () => {
       <styles.formControl modeContext={getModeContext}>
         <label className="title" children="Login" />
         <components.input modeContext={[getModeContext, setModeContext]} titleValue="Login:" inputPlaceholder="Entrar com email" inputValue={[getUserNameValue, setUserNameValue]}></components.input>
-        <components.input modeContext={[getModeContext, setModeContext]} titleValue="Senha:" inputPlaceholder="Senha: ******" inputValue={[getPasswordValue, setPasswordValue]}></components.input>
-        <styles.passwordreset modeContext={getModeContext} children="Esqueceu a senha?" href="/passwordreset" />
+        <components.input inputIsPassword={true} modeContext={[getModeContext, setModeContext]} titleValue="Senha:" inputPlaceholder="Senha: ******" inputValue={[getPasswordValue, setPasswordValue]}></components.input>
+        <styles.passwordreset modeContext={getModeContext} children="Esqueceu a senha?" onClick={async () => await router.push("/passwordreset")} />
         <components.button modeContext={[getModeContext, setModeContext]} showButton={(getUserNameValue ?? "") != "" && (getPasswordValue ?? "") != ""} buttonValue="Entrar"
           onClick={async () => {
-            await router.push('/menu');
+            if ((getUserNameValue ?? "") == "") components.toast.showMessage("Campo não preenchido", "O campo de login deve ser informado", undefined, "warning");
+            else if (!validate.email(getUserNameValue)) components.toast.showMessage("Campo não preenchido", "O texto digitado no campo de login não é valido", undefined, "warning");
+            else if ((getPasswordValue ?? "") == "") components.toast.showMessage("Campo não preenchido", "O campo 'Senha' deve ser informado", undefined, "warning");
+            else if (getUserNameValue && getPasswordValue) {
+              let response = await controller.user.accesstoken(getUserNameValue, getPasswordValue);
+              if (validate.APIExecutedSuccessfully(response.status)) components.toast.showMessage("Bem vindo ao fiscalizi", "Será redirecionado para a página inicial", async () => {
+                authToken.set(response.data.IntegrationToken, response.data.ClientSecret, response.data.AccessToken, response.data.TimeOut);
+                await router.push("/menu");
+              });
+              else alert(JSON.stringify(response.data))
+            }
           }} />
         <styles.line />
         <styles.signup modeContext={getModeContext}>

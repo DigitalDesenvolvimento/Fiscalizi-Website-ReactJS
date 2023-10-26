@@ -2,10 +2,10 @@ import { modeContext } from '@/utils';
 import styled from 'styled-components';
 
 export const view = styled.div<{ modeContext: modeContext }>`
-    align-items: center;
-    background: ${prop => prop.modeContext == modeContext.darkMode ? "#242423" : "#FFFFFF"};
+    align-items: flex-start;
+    background: ${prop => prop.modeContext == modeContext.darkMode ? "#242423" : "#F3F3F3"};
     display: flex;
-    justify-content: center;
+    justify-content: left;
     height: 100vh;
     margin: -8px;
     position: fixed;
@@ -13,48 +13,40 @@ export const view = styled.div<{ modeContext: modeContext }>`
     z-index: -1;
 `;
 view.shouldForwardProp = (prop) => !['modeContext'].includes(prop);
-export const circle01 = styled.div<{ modeContext: modeContext }>`
-    background: ${prop => prop.modeContext == modeContext.darkMode ? "#1D1D1B" : "#1EBADD"};
-    border: 5px solid #1EBADD;
-    border-radius: 100%;
-    box-shadow: 70px 0px 28px rgba(0, 0, 0, 0.01), 39px 0px 24px rgba(0, 0, 0, 0.05), 17px 0px 17px rgba(0, 0, 0, 0.09), 4px 0px 10px rgba(0, 0, 0, 0.1);
-    bottom: 10%;
-    height: 200vh;
-    right: 70%;
-    position: fixed;
-    width: calc(100vw);
+export const topHeader = styled.div<{ modeContext: modeContext }>`
+    align-items: center;
+    background: ${prop => prop.modeContext == modeContext.darkMode ? "transparent" : "transparent"};
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    height: 70px;
+    margin-left: "25%";
+    right: 0;
+    position: absolute;
+    width: 75%;
 `;
-circle01.shouldForwardProp = (prop) => !['modeContext'].includes(prop);
-export const circle02 = styled.div<{ modeContext: modeContext }>`
-    background: ${prop => prop.modeContext == modeContext.darkMode ? "#1D1D1B" : "#1EBADD"};
-    border: 5px solid #1EBADD;
-    border-radius: 100%;
-    box-shadow: -82px 0px 33px rgba(0, 0, 0, 0.01), -46px 0px 28px rgba(0, 0, 0, 0.05), -21px 0px 21px rgba(0, 0, 0, 0.09), -5px 0px 11px rgba(0, 0, 0, 0.1);
-    height: 200vh;
-    left: 70%;
-    position: fixed;
-    width: calc(100vw);
-    top: 10%;
-`;
-circle02.shouldForwardProp = (prop) => !['modeContext'].includes(prop);
-export const iconWithText = styled.svg<{ modeContext: modeContext }>`
-    position: fixed;
-    top: 10px;
-`;
-iconWithText.shouldForwardProp = (prop) => !['modeContext'].includes(prop);
-export const iconWithoutText = styled.svg<{ modeContext: modeContext }>`
-    bottom: 0;
-    height: 60vh;
-    left: 0;
-    position: fixed;
-    width: 35vw;
-`;
-iconWithoutText.shouldForwardProp = (prop) => !['modeContext'].includes(prop);
-export const children = styled.div<{ modeContext: modeContext }>`
+topHeader.shouldForwardProp = (prop) => !['modeContext'].includes(prop);
+export const leftHeader = styled.div<{ modeContext: modeContext }>`
+    align-items: center;
+    background: ${prop => prop.modeContext == modeContext.darkMode ? "#1D1D1B" : "#FCFCFC"};
+    box-shadow: 5px 0 5px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     height: 100vh;
-    position: absolute;
-    width: 100vw;
+    width: 25%;
 `;
-children.shouldForwardProp = (prop) => !['modeContext'].includes(prop);
+leftHeader.shouldForwardProp = (prop) => !['modeContext'].includes(prop);
+export const rightHeader = styled.div<{ modeContext: modeContext }>`
+    align-items: start;
+    background: ${prop => prop.modeContext == modeContext.darkMode ? "transparent" : "transparent"};
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    height: 100vh;
+    margin-left: 20px;
+    margin-top: 70px;
+    border: black;
+    width: 75%;
+`;
+rightHeader.shouldForwardProp = (prop) => !['modeContext'].includes(prop);

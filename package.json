@@ -9,16 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.1.1",
     "@chakra-ui/react": "^2.8.1",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@types/styled-components": "^5.1.28",
+    "axios": "^1.5.1",
+    "form-data": "^4.0.0",
     "framer-motion": "^10.16.4",
     "js-cookie": "^3.0.5",
     "next": "latest",
-    "react": "latest",
     "react-dom": "latest",
     "react-transition-group": "^4.4.5",
+    "recharts": "^2.9.0",
     "styled-components": "^6.0.8"
   },
   "devDependencies": {
@@ -26,6 +29,7 @@
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
+    "@types/react-slick": "^0.23.11",
     "@types/react-transition-group": "^4.4.7",
     "autoprefixer": "latest",
     "eslint": "latest",

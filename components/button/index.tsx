@@ -24,7 +24,7 @@ export default memo((props: props) => {
         async function didMount() {
             switch (getWaitOnClick) {
                 case true:
-                    setTimeout(() => props.onClick && props.onClick().then(() => setWaitOnClick(false)), 0.5 * 1000);
+                    setTimeout(() => (props.onClick && props.onClick().then(() => setWaitOnClick(false))) || setWaitOnClick(false), 0.5 * 1000);
                     break;
                 case false:
                     setTimeout(() => setWaitOnClick(undefined), 0.5 * 1000);

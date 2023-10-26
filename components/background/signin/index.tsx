@@ -1,6 +1,7 @@
+import { toast } from "@/components";
 import { modeContext } from '@/utils';
 import cookies from 'js-cookie';
-import { CSSProperties, Dispatch, ReactNode, SetStateAction, memo } from 'react';
+import { CSSProperties, Dispatch, ReactNode, SetStateAction, memo, useEffect } from 'react';
 import * as styles from "./styles";
 
 interface props {
@@ -11,6 +12,7 @@ interface props {
 
 export default memo((props: props) => {
     return <styles.view modeContext={props.modeContext[0]}>
+        <toast.component />
         <styles.circle01 modeContext={props.modeContext[0]} />
         <styles.circle02 modeContext={props.modeContext[0]} />
         <styles.iconWithText modeContext={props.modeContext[0]}>

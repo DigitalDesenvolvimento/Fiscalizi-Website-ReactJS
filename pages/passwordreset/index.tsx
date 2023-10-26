@@ -1,6 +1,7 @@
+import { controller } from "@/api";
 import * as components from "@/components";
 import '@/public/global.css'
-import { modeContext } from "@/utils";
+import { modeContext, validate } from "@/utils";
 import { useRouter } from 'next/router';
 import cookies from 'js-cookie';
 import { useEffect, useState } from "react";
@@ -18,7 +19,7 @@ export default () => {
     else if (new Date().getHours() >= 18) setModeContext(modeContext.darkMode);
     else setModeContext(modeContext.lightMode);
   }, []);
-  return <components.defaultBackground modeContext={[getModeContext, setModeContext]} styleChildren={{ alignItems: "center", justifyContent: "center" }}>
+  return <components.signupPasswordresetBackground modeContext={[getModeContext, setModeContext]} styleChildren={{ alignItems: "center", justifyContent: "center" }}>
     <styles.superFormControl modeContext={getModeContext}>
       <styles.formControl modeContext={getModeContext}>
         <label className="title" children="Redefinir senha" />
@@ -27,8 +28,19 @@ export default () => {
         <components.button modeContext={[getModeContext, setModeContext]} showButton={(getUserEmailValue ?? "") != ""} buttonValue={getButtonText}
           onClick={async () => {
             if (getButtonText == "Enviar") {
-              setTextLog("Link para redefinição de senha enviado. ☑️");
-              setButtonText("Voltar a pagina de signin");
+              if ((getUserEmailValue ?? "") == "") components.toast.showMessage("Campo não preenchido", "O campo 'Email' deve ser informado", undefined, "warning");
+              else if (!validate.email(getUserEmailValue)) components.toast.showMessage("Campo não preenchido", "O texto digitado no campo 'Email' não é valido", undefined, "warning");
+              else if (getUserEmailValue) {
+                let response = await controller.user.newpassword(getUserEmailValue);
+                if (validate.APIExecutedSuccessfully(response.status)) {
+                  components.toast.showMessage("Link para redefinição de senha enviado ☑️", "Verifique a caixa de entrada ou caixa de spam para realizar a redefinição de senha", async () => { await router.push('/signin'); });
+                  setTextLog("Link para redefinição de senha enviado. ☑️");
+                  setButtonText("Voltar a pagina de signin");
+                }
+                else {
+                  components.toast.showMessage("Falha ao enviar o link de redefinição de senha", "Verifique se o campo 'Email' foi informado corretamente", undefined, "error");
+                }
+              }
             }
             else {
               router.push('/signin');
@@ -36,5 +48,5 @@ export default () => {
           }} />
       </styles.formControl>
     </styles.superFormControl>
-  </components.defaultBackground>
+  </components.signupPasswordresetBackground>
 }
