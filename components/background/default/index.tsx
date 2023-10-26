@@ -2,7 +2,7 @@ import * as components from "@/components";
 import { modeContext } from '@/utils';
 import { motion } from "framer-motion";
 import cookies from 'js-cookie';
-import { CSSProperties, Dispatch, ReactNode, SetStateAction, memo, useState } from 'react';
+import { CSSProperties, Dispatch, Fragment, ReactNode, SetStateAction, memo, useEffect, useState } from 'react';
 import * as styles from "./styles";
 import { useRouter } from "next/router";
 import { Tooltip } from "@chakra-ui/react";
@@ -16,6 +16,13 @@ interface props {
 
 export default memo((props: props) => {
     const router = useRouter();
+
+    useEffect(() => {
+        if (props.menuItemChecked[0] != "Dashboard") {
+            components.toast.showMessage("Função em desenvolvimento", "Aguarde, em breve será liberada", undefined, "info");
+            props.menuItemChecked[1]("Dashboard");
+        }
+    }, [props.menuItemChecked[0]])
 
     return <styles.view modeContext={props.modeContext[0]}>
         <components.toast.component />
@@ -41,7 +48,9 @@ export default memo((props: props) => {
                 </motion.div>
             </Tooltip>
             <Tooltip label="Novas atualizações" background={props.modeContext[0] == modeContext.darkMode ? "#FFFFFF" : "#242423"} borderRadius="10px" color={props.modeContext[0] == modeContext.darkMode ? "#242423" : "#FFFFFF"} padding="10px">
-                <motion.div style={{ background: "#E7E7E7", borderRadius: "15px", cursor: "pointer", marginRight: "10px", padding: "5px" }} whileHover={{ padding: "10px" }}>
+                <motion.div style={{ background: "#E7E7E7", borderRadius: "15px", cursor: "pointer", marginRight: "10px", padding: "5px" }} whileHover={{ padding: "10px" }} onClick={() => {
+                    components.toast.showMessage("Função em desenvolvimento", "Aguarde, em breve será liberada", undefined, "info");
+                }}>
                     <svg width="35px" height="35px" xmlns="http://www.w3.org/2000/svg">
                         <path d="M13.223 25.6338H38V28.838C38 32.2412 35.1262 35 31.5811 35H6.93243V34.9988C10.4182 34.9331 13.223 32.2 13.223 28.838V25.6338Z" fill={props.modeContext[0] == modeContext.darkMode ? "#242423" : "#301770"} />
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M26.0316 0H0V28.838C0 32.2412 2.87385 35 6.41892 35H31.9662V34.9827C28.6473 34.7451 26.0316 32.0848 26.0316 28.838V0ZM12.5046 9.78568L7.19408 14.8836C6.86824 15.1964 6.86824 15.7036 7.19408 16.0164C7.51991 16.3293 8.04835 16.3293 8.37418 16.0164L12.2601 12.286V23.7852C12.2601 24.2276 12.6337 24.5863 13.0946 24.5863C13.5555 24.5863 13.9291 24.2276 13.9291 23.7852V12.286L17.815 16.0164C18.1408 16.3293 18.6693 16.3293 18.9951 16.0164C19.3209 15.7036 19.3209 15.1964 18.9951 14.8836L13.6847 9.78568C13.3587 9.47283 12.8304 9.47283 12.5046 9.78568Z" fill={props.modeContext[0] == modeContext.darkMode ? "#242423" : "#15004C"} />
@@ -49,14 +58,18 @@ export default memo((props: props) => {
                 </motion.div>
             </Tooltip>
             <Tooltip label="Novas atualizações" background={props.modeContext[0] == modeContext.darkMode ? "#FFFFFF" : "#242423"} borderRadius="10px" color={props.modeContext[0] == modeContext.darkMode ? "#242423" : "#FFFFFF"} padding="10px">
-                <motion.div style={{ background: "#E7E7E7", borderRadius: "15px", cursor: "pointer", marginRight: "10px", padding: "5px" }} whileHover={{ padding: "10px" }}>
+                <motion.div style={{ background: "#E7E7E7", borderRadius: "15px", cursor: "pointer", marginRight: "10px", padding: "5px" }} whileHover={{ padding: "10px" }} onClick={() => {
+                    components.toast.showMessage("Função em desenvolvimento", "Aguarde, em breve será liberada", undefined, "info");
+                }}>
                     <svg width="35px" height="35px" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5.5 14.7836C5.499 12.4756 6.20993 10.2246 7.534 8.34339C8.85807 6.46217 10.7295 5.04414 12.8883 4.28635C12.8047 3.75744 12.8358 3.2165 12.9793 2.70087C13.1228 2.18523 13.3754 1.70718 13.7196 1.29969C14.0638 0.892198 14.4915 0.564971 14.9731 0.340586C15.4547 0.116201 15.9788 0 16.5092 0C17.0396 0 17.5636 0.116201 18.0453 0.340586C18.5269 0.564971 18.9545 0.892198 19.2987 1.29969C19.643 1.70718 19.8956 2.18523 20.0391 2.70087C20.1826 3.2165 20.2136 3.75744 20.13 4.28635C22.2854 5.04725 24.1529 6.4666 25.4735 8.34756C26.7941 10.2285 27.5023 12.4779 27.5 14.7836V25.8918L33 29.5945V31.4459H0V29.5945L5.5 25.8918V14.7836ZM20.1667 33.2973C20.1667 34.2793 19.7804 35.2211 19.0927 35.9155C18.4051 36.6099 17.4725 37 16.5 37C15.5275 37 14.5949 36.6099 13.9073 35.9155C13.2196 35.2211 12.8333 34.2793 12.8333 33.2973H20.1667Z" fill={props.modeContext[0] == modeContext.darkMode ? "#242423" : "#15004C"} />
                     </svg>
                 </motion.div>
             </Tooltip>
             <Tooltip label="Novas atualizações" background={props.modeContext[0] == modeContext.darkMode ? "#FFFFFF" : "#242423"} borderRadius="10px" color={props.modeContext[0] == modeContext.darkMode ? "#242423" : "#FFFFFF"} padding="10px">
-                <motion.div style={{ background: "#E7E7E7", borderRadius: "15px", cursor: "pointer", marginRight: "10px", padding: "5px" }} whileHover={{ padding: "10px" }}>
+                <motion.div style={{ background: "#E7E7E7", borderRadius: "15px", cursor: "pointer", marginRight: "10px", padding: "5px" }} whileHover={{ padding: "10px" }} onClick={() => {
+                    components.toast.showMessage("Função em desenvolvimento", "Aguarde, em breve será liberada", undefined, "info");
+                }}>
                     <svg width="35px" height="35px" xmlns="http://www.w3.org/2000/svg">
                         <path d="M16.5 0C18.688 0 20.7865 0.895533 22.3336 2.48959C23.8808 4.08365 24.75 6.24566 24.75 8.5C24.75 10.7543 23.8808 12.9163 22.3336 14.5104C20.7865 16.1045 18.688 17 16.5 17C14.312 17 12.2135 16.1045 10.6664 14.5104C9.11919 12.9163 8.25 10.7543 8.25 8.5C8.25 6.24566 9.11919 4.08365 10.6664 2.48959C12.2135 0.895533 14.312 0 16.5 0ZM16.5 21.25C25.6163 21.25 33 25.0537 33 29.75V34H0V29.75C0 25.0537 7.38375 21.25 16.5 21.25Z" fill={props.modeContext[0] == modeContext.darkMode ? "#242423" : "#15004C"} />
                     </svg>
@@ -95,7 +108,7 @@ export default memo((props: props) => {
                     </svg>
                 </motion.div>
             </Tooltip>
-            <>
+            <Fragment>
                 <components.menuItem formStyle={{ marginBottom: "10px" }} modeContext={props.modeContext} titleValue="Dashboard" isChecked={props.menuItemChecked[0] == "Dashboard"} onClick={async () => props.menuItemChecked[1]("Dashboard")}
                     icon={<svg width="32" height="34" viewBox="0 0 32 34" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M14.897 4.21139C14.8279 1.9242 12.92 0.123309 10.6289 0.178992H4.76856C2.4774 0.12331 0.56957 1.92421 0.500442 4.2114C0.500147 4.22115 0.5 4.2309 0.5 4.24065V6.34006C0.5 6.34982 0.500147 6.35957 0.500442 6.36931C0.569569 8.65652 2.4774 10.4574 4.76858 10.4017H10.6289C12.92 10.4574 14.8279 8.65653 14.897 6.36933C14.8973 6.35957 14.8975 6.34982 14.8975 6.34006V4.24065C14.8975 4.2309 14.8973 4.22114 14.897 4.21139ZM10.6685 2.11964C11.8892 2.08586 12.9079 3.04063 12.9519 4.25659V6.32413C12.9079 7.54011 11.8892 8.49486 10.6685 8.46107C10.6595 8.46082 10.6505 8.4607 10.6415 8.4607H4.75595C4.74695 8.4607 4.73796 8.46082 4.72897 8.46107C3.50818 8.49487 2.48954 7.54011 2.44561 6.32414V4.25658C2.48954 3.04063 3.50817 2.08586 4.72898 2.11964C4.73797 2.11989 4.74696 2.12002 4.75595 2.12002H10.6415C10.6505 2.12002 10.6595 2.11989 10.6685 2.11964Z" fill={props.modeContext[0] == modeContext.darkMode ? "#FCFCFC" : "#15004C"} />
@@ -148,7 +161,7 @@ export default memo((props: props) => {
                     <path d="M10 12.4977C13.4518 12.4977 16.25 9.73981 16.25 6.33773C16.25 2.93566 13.4518 0.177734 10 0.177734C6.54823 0.177734 3.75001 2.93566 3.75001 6.33773C3.75001 9.73981 6.54823 12.4977 10 12.4977Z" fill={props.modeContext[0] == modeContext.darkMode ? "#FCFCFC" : "#15004C"} />
                     <path d="M19.0165 18.3712C18.1646 18.128 17.2643 17.9977 16.3333 17.9977C10.9945 17.9977 6.66668 22.2824 6.66668 27.5677C6.66668 27.6073 6.66692 27.6469 6.66741 27.6864C2.78304 27.1425 0 25.4801 0 21.9157C0 17.3947 4.47716 13.7297 10 13.7297C13.9717 13.7297 17.4026 15.6251 19.0165 18.3712Z" fill={props.modeContext[0] == modeContext.darkMode ? "#FCFCFC" : "#15004C"} />
                 </svg>} />
-            </>
+            </Fragment>
             <Tooltip label="Clicando aqui você será deslogado do sistema" background={props.modeContext[0] == modeContext.darkMode ? "#FFFFFF" : "#242423"} borderRadius="10px" color={props.modeContext[0] == modeContext.darkMode ? "#242423" : "#FFFFFF"} padding="10px">
                 <motion.div style={{ cursor: "pointer", marginBottom: "40px", marginTop: "60px" }} whileHover={{ padding: "10px" }}
                     onClick={async () => components.toast.showMessage("Sua sessão será finalizada", "Será redirecionado para tela de signin para realizar o seu login", async () => { await router.push("/signin"); })}>
