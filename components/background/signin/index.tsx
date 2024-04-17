@@ -1,7 +1,8 @@
 import { toast } from "@/components";
+import '@/public/global.css';
 import { modeContext } from '@/utils';
 import cookies from 'js-cookie';
-import { CSSProperties, Dispatch, ReactNode, SetStateAction, memo, useEffect } from 'react';
+import { CSSProperties, Dispatch, ReactNode, SetStateAction, memo } from 'react';
 import * as styles from "./styles";
 
 interface props {

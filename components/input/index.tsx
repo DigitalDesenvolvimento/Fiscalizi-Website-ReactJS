@@ -1,6 +1,7 @@
-import { modeContext } from '@/utils';
 import * as Icon from '@chakra-ui/icons'
 import { FormControl, FormLabel, IconButton, Input } from '@chakra-ui/react';
+import '@/public/global.css';
+import { modeContext } from '@/utils';
 import { motion } from "framer-motion";
 import { Dispatch, SetStateAction, memo, useEffect, useState } from 'react';
 import { CSSProperties } from 'styled-components';
@@ -13,6 +14,8 @@ interface props {
     titleStyle?: CSSProperties;
     inputPlaceholder?: string;
     inputValue: [string | undefined, Dispatch<SetStateAction<string | undefined>>];
+    OnInputFormat?: (text: string) => Promise<string>;
+    OnInputUnformat?: (text: string) => Promise<string>;
     inputStyle?: CSSProperties;
     inputIsPassword?: boolean;
     inputIsPhone?: boolean;

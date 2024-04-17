@@ -1,4 +1,5 @@
 import { toast } from "@/components";
+import '@/public/global.css';
 import { modeContext } from '@/utils';
 import { CSSProperties, Dispatch, ReactNode, SetStateAction, memo } from 'react';
 import * as styles from "./styles";

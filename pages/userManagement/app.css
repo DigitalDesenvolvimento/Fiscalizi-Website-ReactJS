@@ -1,0 +1,14 @@
+.e-groupdroparea.e-lib.e-droppable.e-draggable,
+.e-gridpager.e-control.e-pager.e-lib,
+#GridComponentRef > div.e-gridpager.e-control.e-pager.e-lib > div.e-pagercontainer,
+.e-prev.e-icons.e-icon-prev.e-prevpagedisabled.e-disable,
+.e-first.e-icons.e-icon-first.e-firstpagedisabled.e-disable,
+.e-next.e-icons.e-icon-next.e-nextpagedisabled.e-disable,
+.e-last.e-icons.e-icon-last.e-lastpagedisabled.e-disable,
+.e-input-group.e-control-wrapper.e-alldrop.e-ddl.e-lib.e-keyboard.e-valid-input,
+.e-input-group.e-control-wrapper.e-alldrop.e-ddl.e-lib.e-keyboard.e-valid-input.e-input-focus,
+.e-control.e-grid.e-lib.e-gridhover.e-responsive.e-default.e-droppable.e-resize-lines.e-tooltip.e-keyboard {
+    background: #3A3A3A;
+    background-color: #3A3A3A;
+    color: #FFFFFF;
+}

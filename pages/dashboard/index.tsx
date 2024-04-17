@@ -2,58 +2,74 @@ import { controller } from "@/api";
 import { FormLabel } from "@chakra-ui/react";
 import * as components from "@/components";
 import '@/public/global.css';
-import { modeContext } from "@/utils";
+import { authToken, modeContext, validate } from "@/utils";
 import cookies from 'js-cookie';
-import { memo, useEffect, useState } from "react";
+import { Fragment, memo, useEffect, useState } from "react";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, PieChart, Pie, ResponsiveContainer, Tooltip as TooltipChart } from 'recharts';
 import * as styles from "./styles";
 
 export default memo(() => {
   const [getModeContext, setModeContext] = useState<modeContext>(modeContext.lightMode);
+  const [getDashBoard, setDashBoard] = useState<{
+    Highlights: {
+      Label: string;
+      Tooltip: string;
+      Text: string;
+    }[];
+    UnsuccessfulConsultations: {
+      Label: string;
+      Tooltip: string;
+      Graphic: {
+        XAxis: string;
+        YAxis: string;
+      }[];
+      Highlights: {
+        Label: string;
+        Tooltip: string;
+        Text: string;
+      }[];
+    };
+    SuccessfulQueriesHistory: {
+      Label: string;
+      Tooltip: string;
+      Graphic: {
+        XAxis: string;
+        YAxis: string;
+      }[];
+    };
+    TaxesExpectedToBePaid: {
+      Label: string;
+      Tooltip: string;
+      Graphic: {
+        XAxis: string;
+        YAxis: string;
+      }[];
+    };
+  }>();
 
   useEffect(() => {
     if (cookies.get('modeContext')) setModeContext(cookies.get('modeContext') as modeContext);
     else if (new Date().getHours() >= 18) setModeContext(modeContext.darkMode);
     else setModeContext(modeContext.lightMode);
   }, []);
+  useEffect(() => {
+    async function didMount() {
+      let response = await controller.dashboard.metricsandhighlights();
+      if (validate.APIExecutedSuccessfully(response.status)) setDashBoard(response.data);
+      else components.toast.showMessage("Houve um problema ao trazer os dados para o dashboard", "tente atualizar a página para recarregar as informações", undefined, "warning");
+    }
+    didMount();
+  }, []);
   return <styles.container modeContext={getModeContext}>
     <FormLabel style={{
-      alignItems: "center",
-      color: getModeContext == modeContext.darkMode ? "#FCFCFC" : "#000000",
-      cursor: "pointer",
-      fontSize: "20px",
-      marginLeft: "20px",
-      whiteSpace: "nowrap"
+      alignItems: "center", color: getModeContext == modeContext.darkMode ? "#FCFCFC" : "#000000",
+      cursor: "pointer", fontSize: "20px", marginLeft: "20px", whiteSpace: "nowrap"
     }} children="Destaques" />
     <styles.dashboardContainer modeContext={getModeContext}>
-      <styles.dashboardValue modeContext={getModeContext}>
-        <styles.dashboardValueLabel modeContext={getModeContext} children="titulo" />
-        <styles.dashboardValueText modeContext={getModeContext} children="0,00" />
-      </styles.dashboardValue>
-      <styles.dashboardValue modeContext={getModeContext}>
-        <styles.dashboardValueLabel modeContext={getModeContext} children="titulo" />
-        <styles.dashboardValueText modeContext={getModeContext} children="0,00" />
-      </styles.dashboardValue>
-      <styles.dashboardValue modeContext={getModeContext}>
-        <styles.dashboardValueLabel modeContext={getModeContext} children="titulo" />
-        <styles.dashboardValueText modeContext={getModeContext} children="0,00" />
-      </styles.dashboardValue>
-      <styles.dashboardValue modeContext={getModeContext}>
-        <styles.dashboardValueLabel modeContext={getModeContext} children="titulo" />
-        <styles.dashboardValueText modeContext={getModeContext} children="0,00" />
-      </styles.dashboardValue>
-      <styles.dashboardValue modeContext={getModeContext}>
-        <styles.dashboardValueLabel modeContext={getModeContext} children="titulo" />
-        <styles.dashboardValueText modeContext={getModeContext} children="0,00" />
-      </styles.dashboardValue>
-      <styles.dashboardValue modeContext={getModeContext}>
-        <styles.dashboardValueLabel modeContext={getModeContext} children="titulo" />
-        <styles.dashboardValueText modeContext={getModeContext} children="0,00" />
-      </styles.dashboardValue>
-      <styles.dashboardValue modeContext={getModeContext}>
-        <styles.dashboardValueLabel modeContext={getModeContext} children="titulo" />
-        <styles.dashboardValueText modeContext={getModeContext} children="0,00" />
-      </styles.dashboardValue>
+      {getDashBoard && getDashBoard!.Highlights.map((Item) => <styles.dashboardValue modeContext={getModeContext}>
+        <styles.dashboardValueLabel modeContext={getModeContext} children={Item.Label} />
+        <styles.dashboardValueText modeContext={getModeContext} children={Item.Text} />
+      </styles.dashboardValue>)}
     </styles.dashboardContainer>
     <FormLabel style={{
       alignItems: "center",
@@ -71,21 +87,19 @@ export default memo(() => {
       <styles.dashboardValue modeContext={getModeContext} style={{ width: "30%" }}>
         <ResponsiveContainer width="100%" height="3100%">
           <PieChart >
-            <Pie data={[
-              { name: 'A1', value: 100 },
-              { name: 'A2', value: 300 },
-              { name: 'B1', value: 100 },
-              { name: 'D2', value: 50 },
-            ]} dataKey="value" cx="50%" cy="50%" innerRadius={70} outerRadius={90} fill="#82ca9d" />
+            <Pie data={getDashBoard ? getDashBoard!.UnsuccessfulConsultations.Graphic.map((Item) => {
+              return {
+                name: Item.XAxis,
+                value: parseFloat(Item.YAxis.replace(/[^\d.,]/g, '').replaceAll('.', '').replaceAll(',', '.'))
+              };
+            }) : []} dataKey="value" cx="50%" cy="50%" innerRadius={70} outerRadius={90} fill="#82ca9d" />
             <TooltipChart />
           </PieChart>
         </ResponsiveContainer>
-        <styles.dashboardValueLabel modeContext={getModeContext} children="titulo" />
-        <styles.dashboardValueText modeContext={getModeContext} children="0,00" />
-        <styles.dashboardValueLabel modeContext={getModeContext} children="titulo" />
-        <styles.dashboardValueText modeContext={getModeContext} children="0,00" />
-        <styles.dashboardValueLabel modeContext={getModeContext} children="titulo" />
-        <styles.dashboardValueText modeContext={getModeContext} children="0,00" />
+        {getDashBoard ? getDashBoard!.UnsuccessfulConsultations.Graphic.map((Item) => <Fragment>
+          <styles.dashboardValueLabel modeContext={getModeContext} children={Item.XAxis} />
+          <styles.dashboardValueText modeContext={getModeContext} children={Item.YAxis} />
+        </Fragment>) : []}
       </styles.dashboardValue>
       <styles.dashboardContainer style={{
         display: "flex",
@@ -139,7 +153,7 @@ export default memo(() => {
               }}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
-              <YAxis />
+              <YAxis dataKey="uv" />
               <TooltipChart />
               <Area type="monotone" dataKey="uv" stroke="#8884d8" fill="#8884d8" />
             </AreaChart>

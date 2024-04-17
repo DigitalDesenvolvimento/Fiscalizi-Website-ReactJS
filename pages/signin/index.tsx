@@ -29,7 +29,7 @@ export default () => {
         <components.button modeContext={[getModeContext, setModeContext]} showButton={(getUserNameValue ?? "") != "" && (getPasswordValue ?? "") != ""} buttonValue="Entrar"
           onClick={async () => {
             if ((getUserNameValue ?? "") == "") components.toast.showMessage("Campo não preenchido", "O campo de login deve ser informado", undefined, "warning");
-            else if (!validate.email(getUserNameValue)) components.toast.showMessage("Campo não preenchido", "O texto digitado no campo de login não é valido", undefined, "warning");
+            else if (!validate.email(getUserNameValue)) components.toast.showMessage("Campo deve ser preenchido com o email do usuário", "O texto digitado no campo de login não é valido", undefined, "warning");
             else if ((getPasswordValue ?? "") == "") components.toast.showMessage("Campo não preenchido", "O campo 'Senha' deve ser informado", undefined, "warning");
             else if (getUserNameValue && getPasswordValue) {
               let response = await controller.user.accesstoken(getUserNameValue, getPasswordValue);
@@ -37,7 +37,7 @@ export default () => {
                 authToken.set(response.data.IntegrationToken, response.data.ClientSecret, response.data.AccessToken, response.data.TimeOut);
                 await router.push("/menu");
               });
-              else alert(JSON.stringify(response.data))
+              else components.toast.showMessage("Usuário ou senha est(á)ão incorreto(s)", "Verifique as informações digitadas e tente novamentes", undefined, "error")
             }
           }} />
         <styles.line />

@@ -9,6 +9,7 @@ export default () => {
   useEffect(() => {
     async function didMount() {
       await router.push(authToken.get() ? '/menu' : '/signin');
+      //await router.push('/TaxpayerRegistration');
     }
     didMount();
   }, []);

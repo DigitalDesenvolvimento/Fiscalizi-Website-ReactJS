@@ -14,7 +14,7 @@ export const dashboardContainer = styled.div<{ modeContext: modeContext }>`
 `;
 dashboardContainer.shouldForwardProp = (prop) => !['modeContext'].includes(prop);
 export const dashboardValue = styled.div<{ modeContext: modeContext }>`
-    background: #FFFFFF;
+    background: ${prop => prop.modeContext == modeContext.darkMode ? "#3A3A3A" : "#FFFFFF"};
     box-shadow: 0px 8px 17px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
     display: flex;
@@ -27,6 +27,7 @@ export const dashboardValue = styled.div<{ modeContext: modeContext }>`
 dashboardValue.shouldForwardProp = (prop) => !['modeContext'].includes(prop);
 export const dashboardValueLabel = styled.label<{ modeContext: modeContext }>`
     align-items: end;
+    color: ${prop => prop.modeContext == modeContext.darkMode ? "#FFFFFF" : "#3A3A3A"};
     display: flex;
     flex-direction: column;
     font-size: 100%;
@@ -37,6 +38,7 @@ export const dashboardValueLabel = styled.label<{ modeContext: modeContext }>`
 dashboardValue.shouldForwardProp = (prop) => !['modeContext'].includes(prop);
 export const dashboardValueText = styled.label<{ modeContext: modeContext }>`
     align-items: end;
+    color: ${prop => prop.modeContext == modeContext.darkMode ? "#FFFFFF" : "#3A3A3A"};
     display: flex;
     flex-direction: column;
     font-size: 300%;

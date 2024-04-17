@@ -1,4 +1,5 @@
 import { Button, FormControl } from '@chakra-ui/react';
+import '@/public/global.css';
 import { modeContext } from "@/utils";
 import { motion } from "framer-motion";
 import { Dispatch, SetStateAction, memo, useEffect, useState } from 'react';

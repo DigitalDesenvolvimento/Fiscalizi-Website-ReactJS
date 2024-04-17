@@ -1,11 +1,18 @@
-import { controller } from "@/api";
 import * as components from "@/components";
-import { authToken, modeContext, validate } from "@/utils";
+import Dashboard from "@/pages/dashboard";
+import IntegrationWithOnlinePayment from "@/pages/integrationWithOnlinePayment";
+import IPTUCollection from "@/pages/iptuCollection";
+import MapsAndGeolocation from "@/pages/mapsAndGeolocation";
+import OwnershipTransferMonitoring from "@/pages/ownershipTransferMonitoring";
+import RegistrationOfCityHalls from "@/pages/registrationOfCityHalls";
+import PropertyManagement from "@/pages/propertyManagement";
+import SystemConfiguration from "@/pages/systemConfiguration";
+import TaxpayerRegistration from "@/pages/taxpayerRegistration";
+import UserManagement from "@/pages/userManagement";
+import { modeContext } from "@/utils";
 import '@/public/global.css';
 import cookies from 'js-cookie';
 import { memo, useEffect, useState } from "react";
-import Dashboard from "@/pages/dashboard";
-import * as styles from "./styles";
 
 export default memo(() => {
   const [getModeContext, setModeContext] = useState<modeContext>(modeContext.lightMode);
@@ -18,5 +25,14 @@ export default memo(() => {
   }, []);
   return <components.defaultBackground modeContext={[getModeContext, setModeContext]} menuItemChecked={[getMenuItemChecked, setMenuItemChecked]} styleChildren={{ alignItems: "end", justifyContent: "center" }} >
     {getMenuItemChecked == "Dashboard" && <Dashboard />}
+    {getMenuItemChecked == "Configuração de sistema" && <SystemConfiguration />}
+    {getMenuItemChecked == "Gerenciamento de usuário" && <UserManagement />}
+    {getMenuItemChecked == "Cadastro de contribuintes" && <TaxpayerRegistration />}
+    {getMenuItemChecked == "Gerenciamento de imóves" && <PropertyManagement />}
+    {getMenuItemChecked == "Cadastro de prefeituras" && <RegistrationOfCityHalls />}
+    {getMenuItemChecked == "Coleta de ITPU" && <IPTUCollection />}
+    {getMenuItemChecked == "Integração com Pagto Online" && <IntegrationWithOnlinePayment />}
+    {getMenuItemChecked == "Mapas e Geolocalização" && <MapsAndGeolocation />}
+    {getMenuItemChecked == "Monit. de Transf. titularidade" && <OwnershipTransferMonitoring />}
   </components.defaultBackground>
 });
