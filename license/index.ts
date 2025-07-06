@@ -1,1 +1,0 @@
-export { default as syncfusion } from './syncfusion';
